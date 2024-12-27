@@ -1,6 +1,5 @@
 # tests/test_example.py
-from app.myapp import add, subtract
-
+from tests/test_example.py
 # Test the add function
 def test_addition():
     result = add(3, 5)
