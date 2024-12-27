@@ -1,26 +1,33 @@
+# .github/workflows/run-tests.yml in Repo-B
+
 name: Run Tests on Trigger
 
 on:
   repository_dispatch:
-    types: [run-tests]  # This matches the event-type from Repo A
+    types: [run-tests]
 
 jobs:
   run_tests:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code from Repo B
+    - name: Checkout Repo B code
       uses: actions/checkout@v2
 
-    - name: Set up Python (or the appropriate language for your tests)
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9  # Replace with your required Python version
+        python-version: 3.9
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt  # Or any other command for installing dependencies
+        pip install -r requirements.txt  # Install dependencies
 
-    - name: Run test cases
+    - name: Set PYTHONPATH for imports
       run: |
-        pytest  # Replace with your test command
+        echo "PYTHONPATH=$(pwd)/app" >> $GITHUB_ENV  # Set PYTHONPATH to the root of the app
+        echo "PYTHONPATH: $PYTHONPATH"
+
+    - name: Run pytest
+      run: |
+        pytest tests/test_example.py  # Run your test file
