@@ -1,0 +1,26 @@
+name: Run Tests on Trigger
+
+on:
+  repository_dispatch:
+    types: [run-tests]  # This matches the event-type from Repo A
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code from Repo B
+      uses: actions/checkout@v2
+
+    - name: Set up Python (or the appropriate language for your tests)
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9  # Replace with your required Python version
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # Or any other command for installing dependencies
+
+    - name: Run test cases
+      run: |
+        pytest  # Replace with your test command
