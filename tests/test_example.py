@@ -1,7 +1,5 @@
 # tests/test_example.py
 
-# Import the functions to test (make sure they exist in your app)
-from app.myapp import add, subtract
 
 # Test the add function
 def test_addition():
