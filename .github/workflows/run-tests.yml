@@ -1,4 +1,4 @@
-# .github/workflows/run-tests.yml in Repo-B
+# .github/workflows/run-tests.yml in Repo2
 
 name: Run Tests on Trigger
 
