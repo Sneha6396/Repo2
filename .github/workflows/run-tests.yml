@@ -1,33 +1,36 @@
-# .github/workflows/run-tests.yml in Repo2
-
-name: Run Tests on Trigger
+name: Run Tests on Changes
 
 on:
+  push:
+    branches:
+      - main  # Trigger on push to the `main` branch of Repo2
+  pull_request:
+    branches:
+      - main  # Optionally trigger on pull requests to `main`
   repository_dispatch:
-    types: [run-tests]
+    types: [run-tests]  # Still listens to external triggers if needed
 
 jobs:
   run_tests:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repo B code
-      uses: actions/checkout@v2
+      - name: Checkout Repo B code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9  # Specify the Python version to use
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt  # Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Install dependencies from the requirements.txt file
 
-    - name: Set PYTHONPATH for imports
-      run: |
-        echo "PYTHONPATH=$(pwd)/app" >> $GITHUB_ENV  # Set PYTHONPATH to the root of the app
-        echo "PYTHONPATH: $PYTHONPATH"
+      - name: Set PYTHONPATH for imports
+        run: |
+          echo "PYTHONPATH=$(pwd)/app" >> $GITHUB_ENV  # Set PYTHONPATH environment variable for the app directory
+          echo "PYTHONPATH: $PYTHONPATH"  # Print the PYTHONPATH for debugging purposes
 
-    - name: Run pytest
-      run: |
-        pytest tests/test_example.py  # Run your test file
+      - name: Run pytest
+        run: |
+          pytest tests/test_example.py  # Run the tests in test_example.py
