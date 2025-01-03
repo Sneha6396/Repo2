@@ -7,26 +7,29 @@ on:
   pull_request:
     branches:
       - main
-
-on:
   repository_dispatch:
-    types: [run-tests]  
+    types: [run-tests]
+
 jobs:
   run_tests:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repo B code
-      uses: actions/checkout@v2  
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt 
-    - name: Set PYTHONPATH for imports
-      run: |
-        echo "PYTHONPATH=$(pwd)/app" >> $GITHUB_ENV  # Set PYTHONPATH to include 'app' directory
-    - name: Run pytest
-      run: |
-        pytest tests/test_example.py 
+      - name: Checkout Repo B code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Set PYTHONPATH for imports
+        run: |
+          echo "PYTHONPATH=$(pwd)/app" >> $GITHUB_ENV  # Set PYTHONPATH to include 'app' directory
+
+      - name: Run pytest
+        run: |
+          pytest tests/test_example.py
