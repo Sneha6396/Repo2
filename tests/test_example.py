@@ -1,4 +1,7 @@
 # test_example.py
+import sys
+print(sys.path)
+
 import unittest
 from calculator import add, subtract
 
