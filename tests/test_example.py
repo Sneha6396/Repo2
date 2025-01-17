@@ -1,21 +1,18 @@
-# tests/test_example.py
-from app.myapp import add, subtract
+# test_example.py
+import unittest
+from calculator import add, subtract
 
-# Test the add function
-def test_addition():
-    result = add(3, 5)
-    assert result == 8, f"Expected 8, but got {result}"
+class TestCalculator(unittest.TestCase):
 
-# Test the subtract function
-def test_subtraction():
-    result = subtract(10, 4)
-    assert result == 6, f"Expected 6, but got {result}"
+    def test_add(self):
+        self.assertEqual(add(2, 3), 5)
+        self.assertEqual(add(-1, 1), 0)
+        self.assertEqual(add(0, 0), 0)
 
-# Optionally, you can also add edge case tests
-def test_addition_negative():
-    result = add(-1, -1)
-    assert result == -2, f"Expected -2, but got {result}"
+    def test_subtract(self):
+        self.assertEqual(subtract(10, 5), 5)
+        self.assertEqual(subtract(0, 7), -7)
+        self.assertEqual(subtract(3, 3), 0)
 
-def test_subtraction_zero():
-    result = subtract(0, 0)
-    assert result == 0, f"Expected 0, but got {result}"
+if __name__ == '__main__':
+    unittest.main()
